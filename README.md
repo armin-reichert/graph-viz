@@ -1,2 +1,5 @@
 # graph-viz
-Graph algortihm visualization
+Graph algorithm visualization
+
+
+<img src="demo-app.png"/>
