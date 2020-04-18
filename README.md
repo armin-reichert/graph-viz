@@ -2,4 +2,4 @@
 Graph algorithm visualization
 
 
-<img src="demo-app.png"/>
+<img src="demo-app.PNG"/>
