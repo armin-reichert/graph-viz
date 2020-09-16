@@ -1,7 +1,5 @@
 package de.amr.graph.grid.ui.rendering;
 
-import static java.lang.Math.ceil;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -31,7 +29,7 @@ public class WallPassageGridRenderer extends ConfigurableGridRenderer {
 			final int cellX = grid.col(cell) * getCellSize();
 			final int cellY = grid.row(cell) * getCellSize();
 			final int passageWidth = getPassageWidth(cell, cell); // TODO
-			final int offset = (int) ceil((getCellSize() / 2 - passageWidth / 2));
+			final int offset = getCellSize() / 2 - passageWidth / 2;
 			g.translate(cellX, cellY);
 			g.setColor(getCellBgColor(cell));
 			g.fillRect(offset, offset, passageWidth, passageWidth);
