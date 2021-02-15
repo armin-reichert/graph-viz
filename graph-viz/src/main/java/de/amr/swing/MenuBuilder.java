@@ -42,13 +42,11 @@ public class MenuBuilder {
 				if (selection.isPresent()) {
 					checkBox.setSelected(selection.get().get());
 				}
-			}
-			else if (item instanceof JRadioButtonMenuItem) {
+			} else if (item instanceof JRadioButtonMenuItem) {
 				JRadioButtonMenuItem radioButton = (JRadioButtonMenuItem) item;
 				Optional<Supplier<?>> selection = getProperty(radioButton, "selection");
 				Optional<?> selectionValue = getProperty(radioButton, "selectionValue");
-				if (selection.isPresent() && selectionValue.isPresent()
-						&& selection.get().get().equals(selectionValue.get())) {
+				if (selection.isPresent() && selectionValue.isPresent() && selection.get().get().equals(selectionValue.get())) {
 					radioButton.setSelected(true);
 				}
 			}
@@ -62,13 +60,13 @@ public class MenuBuilder {
 		private Action action;
 		private String text;
 
-		public ButtonBuilder action(Action action) {
-			this.action = action;
+		public ButtonBuilder action(Action buttonAction) {
+			action = buttonAction;
 			return this;
 		}
 
-		public ButtonBuilder text(String text) {
-			this.text = text;
+		public ButtonBuilder text(String buttonText) {
+			text = buttonText;
 			return this;
 		}
 
@@ -91,18 +89,18 @@ public class MenuBuilder {
 		private Supplier<Boolean> selection;
 		private String text;
 
-		public CheckBoxBuilder onToggle(Consumer<Boolean> onToggle) {
-			this.onToggle = onToggle;
+		public CheckBoxBuilder onToggle(Consumer<Boolean> onToggleHandler) {
+			onToggle = onToggleHandler;
 			return this;
 		}
 
-		public CheckBoxBuilder selection(Supplier<Boolean> selection) {
-			this.selection = selection;
+		public CheckBoxBuilder selection(Supplier<Boolean> selectionHandler) {
+			selection = selectionHandler;
 			return this;
 		}
 
-		public CheckBoxBuilder text(String text) {
-			this.text = text;
+		public CheckBoxBuilder text(String checkBoxText) {
+			text = checkBoxText;
 			return this;
 		}
 
@@ -135,13 +133,13 @@ public class MenuBuilder {
 			private T selectionValue;
 			private String text;
 
-			public RadioButtonBuilder selectionValue(T selectionValue) {
-				this.selectionValue = selectionValue;
+			public RadioButtonBuilder selectionValue(T radionButtonSelectionValue) {
+				selectionValue = radionButtonSelectionValue;
 				return this;
 			}
 
-			public RadioButtonBuilder text(String text) {
-				this.text = text;
+			public RadioButtonBuilder text(String radioButtonText) {
+				text = radioButtonText;
 				return this;
 			}
 
@@ -170,13 +168,13 @@ public class MenuBuilder {
 			radio = new ButtonGroup();
 		}
 
-		public RadioButtonGroupBuilder<T> selection(Supplier<T> selection) {
-			this.selection = selection;
+		public RadioButtonGroupBuilder<T> selection(Supplier<T> selectionSupplier) {
+			selection = selectionSupplier;
 			return this;
 		}
 
-		public RadioButtonGroupBuilder<T> onSelect(Consumer<T> onSelect) {
-			this.onSelect = onSelect;
+		public RadioButtonGroupBuilder<T> onSelect(Consumer<T> selectionHandler) {
+			onSelect = selectionHandler;
 			return this;
 		}
 

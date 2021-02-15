@@ -116,16 +116,16 @@ public class DFSAnimation implements GraphSearchObserver {
 		return r;
 	}
 
-	public void run(ObservableGraphSearch dfs, int source, int target) {
-		this.dfs = dfs;
+	public void run(ObservableGraphSearch search, int source, int target) {
+		this.dfs = search;
 		GridRenderer canvasRenderer = canvas.getRenderer();
 		canvas.pushRenderer(createPathRenderer(canvasRenderer));
-		dfs.addObserver(this);
-		Path path = dfs.findPath(source, target);
-		dfs.removeObserver(this);
+		search.addObserver(this);
+		Path path = search.findPath(source, target);
+		search.removeObserver(this);
 		canvas.drawGrid();
 		path.forEach(v -> {
-			int w = dfs.getParent(v);
+			int w = search.getParent(v);
 			canvas.drawGridCell(v);
 			if (w != -1) {
 				canvas.drawGridPassage(v, w, true);
