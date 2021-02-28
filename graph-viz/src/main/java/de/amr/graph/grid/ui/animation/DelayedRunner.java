@@ -12,8 +12,7 @@ public final class DelayedRunner {
 	/**
 	 * Sets the supply function for the delay time in milliseconds.
 	 * 
-	 * @param fnMillis
-	 *                   function supplying delay time in milliseconds
+	 * @param fnMillis function supplying delay time in milliseconds
 	 */
 	public void setMillis(IntSupplier fnMillis) {
 		this.fnMillis = fnMillis;
@@ -23,8 +22,7 @@ public final class DelayedRunner {
 	 * Runs the given code after waiting for the current delay time. If the last call to this method
 	 * happened before more than one delay interval, it is run immediately.
 	 * 
-	 * @param code
-	 *               code to be executed
+	 * @param code code to be executed
 	 */
 	public void run(Runnable code) {
 		long delayNanos = fnMillis.getAsInt() * ONE_MILLION;
@@ -36,7 +34,7 @@ public final class DelayedRunner {
 			try {
 				Thread.sleep(sleepMillis);
 			} catch (InterruptedException e) {
-				throw new AnimationInterruptedException();
+//				throw new AnimationInterruptedException();
 			}
 		}
 	}
