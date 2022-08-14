@@ -203,7 +203,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 	}
 
 	public Style getStyle() {
-		return Style.WALL_PASSAGE;
+		return style;
 	}
 
 	public void setStyle(Style style) {
