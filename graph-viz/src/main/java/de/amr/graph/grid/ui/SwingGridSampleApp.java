@@ -15,6 +15,7 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import de.amr.graph.core.api.TraversalState;
@@ -103,7 +104,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 		window = new JFrame();
 		createAnimatedCanvas(cellSize);
 		window.setContentPane(canvas);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle(getTitleText());
 		window.setBackground(Color.BLACK);
@@ -112,8 +113,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 			window.setSize(Swing.getDisplaySize());
 			window.setUndecorated(true);
 			window.setAlwaysOnTop(true);
-		}
-		else {
+		} else {
 			canvas.setPreferredSize(canvasSize);
 			window.pack();
 		}
@@ -143,11 +143,9 @@ public abstract class SwingGridSampleApp implements Runnable {
 		ConfigurableGridRenderer r;
 		if (style == Style.WALL_PASSAGE) {
 			r = new WallPassageGridRenderer();
-		}
-		else if (style == Style.PEARLS) {
+		} else if (style == Style.PEARLS) {
 			r = new PearlsGridRenderer();
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException();
 		}
 		r.fnCellSize = () -> canvas.getCellSize();
@@ -169,8 +167,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	private String getTitleText() {
 		String pattern = "%s [%d cols %d rows %d cells @%d px]";
-		return String.format(pattern, appName, grid.numCols(), grid.numRows(), grid.numVertices(),
-				canvas.getCellSize());
+		return String.format(pattern, appName, grid.numCols(), grid.numRows(), grid.numVertices(), canvas.getCellSize());
 	}
 
 	public void sleep(int millis) {
