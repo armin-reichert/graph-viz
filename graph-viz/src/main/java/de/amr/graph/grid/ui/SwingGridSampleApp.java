@@ -20,7 +20,6 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 import de.amr.graph.core.api.TraversalState;
 import de.amr.graph.grid.api.GridPosition;
-import de.amr.graph.grid.api.GridTopology;
 import de.amr.graph.grid.impl.Grid4Topology;
 import de.amr.graph.grid.impl.GridFactory;
 import de.amr.graph.grid.impl.ObservableGridGraph;
@@ -70,7 +69,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	protected final StopWatch watch = new StopWatch();
 
-	public SwingGridSampleApp(int width, int height, int cellSize) {
+	protected SwingGridSampleApp(int width, int height, int cellSize) {
 		fullscreen = false;
 		style = Style.WALL_PASSAGE;
 		canvasSize = new Dimension(width, height);
@@ -78,7 +77,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 		createUI(cellSize);
 	}
 
-	public SwingGridSampleApp(int cellSize) {
+	protected SwingGridSampleApp(int cellSize) {
 		fullscreen = true;
 		style = Style.WALL_PASSAGE;
 		canvasSize = getScreenSize();
@@ -216,11 +215,6 @@ public abstract class SwingGridSampleApp implements Runnable {
 			canvas.popRenderer();
 			canvas.pushRenderer(createRenderer());
 		}
-	}
-
-	public void setGridTopology(GridTopology topology) {
-		int numCols = grid.numCols(), numRows = grid.numRows();
-		setGrid(GridFactory.emptyObservableGrid(numCols, numRows, Grid4Topology.get(), UNVISITED, 0));
 	}
 
 	public void setCellSize(int cellSize) {
