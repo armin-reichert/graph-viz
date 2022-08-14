@@ -102,14 +102,13 @@ public class DFSAnimation implements GraphSearchObserver {
 			return Color.WHITE;
 		};
 		r.fnPassageColor = (cell, dir) -> {
-			int neighbor = canvas.getGrid().neighbor(cell, dir).get();
+			int neighbor = (int) canvas.getGrid().neighbor(cell, dir).get();
 			if (inPath.get(cell) && inPath.get(neighbor)) {
 				return pathColor;
 			}
 			return Color.WHITE;
 		};
-		if (base instanceof PearlsGridRenderer) {
-			PearlsGridRenderer br = (PearlsGridRenderer) base;
+		if (base instanceof PearlsGridRenderer br) {
 			PearlsGridRenderer pr = (PearlsGridRenderer) r;
 			pr.fnRelativePearlSize = br.fnRelativePearlSize;
 		}

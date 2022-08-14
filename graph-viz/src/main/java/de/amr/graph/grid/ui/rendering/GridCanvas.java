@@ -47,10 +47,8 @@ public class GridCanvas extends JComponent {
 	/**
 	 * Constructs a grid canvas rendering the given grid at the given cell size.
 	 * 
-	 * @param grid
-	 *                   grid to be rendered
-	 * @param cellSize
-	 *                   grid cell size in pixel
+	 * @param grid     grid to be rendered
+	 * @param cellSize grid cell size in pixel
 	 */
 	public GridCanvas(GridGraph2D<?, ?> grid, int cellSize) {
 		this.grid = Objects.requireNonNull(grid);
@@ -58,7 +56,7 @@ public class GridCanvas extends JComponent {
 			throw new IllegalArgumentException("Grid cell size must be positive");
 		}
 		this.cellSize = cellSize;
-		setDoubleBuffered(false); // TODO is this useful?
+		setDoubleBuffered(false);
 		setOpaque(true);
 		setBackground(Color.BLACK);
 		createBuffer(cellSize * grid.numCols(), cellSize * grid.numRows());
@@ -82,7 +80,6 @@ public class GridCanvas extends JComponent {
 			g.translate(dx, dy);
 		}
 		g.drawImage(buffer, 0, 0, null);
-		// TODO fixme
 		g.setColor(getRenderer().getModel().getGridBgColor());
 		g.drawRect(0, 0, gridWidth, gridWidth);
 		if (centered) {
@@ -92,9 +89,9 @@ public class GridCanvas extends JComponent {
 
 	private void createDefaultRenderer() {
 		defaultRenderer = new WallPassageGridRenderer();
-		defaultRenderer.fnCellSize = () -> getCellSize();
+		defaultRenderer.fnCellSize = this::getCellSize;
 		defaultRenderer.fnPassageWidth = (u, v) -> getCellSize() - 1;
-		defaultRenderer.fnText = cell -> String.valueOf(cell);
+		defaultRenderer.fnText = String::valueOf;
 		defaultRenderer.fnTextColor = cell -> Color.BLACK;
 		rendererStack.push(defaultRenderer);
 	}
@@ -106,9 +103,8 @@ public class GridCanvas extends JComponent {
 		if (height == 0) {
 			throw new GridCanvasException("Buffer height must be greater than 0");
 		}
-		// System.out.println("Creating new drawing buffer, width=" + width + ", height=" + height);
-		buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-				.getDefaultConfiguration().createCompatibleImage(width, height);
+		buffer = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration()
+				.createCompatibleImage(width, height);
 		Dimension size = new Dimension(width, height);
 		setPreferredSize(size);
 		setSize(size);
@@ -146,7 +142,8 @@ public class GridCanvas extends JComponent {
 		firePropertyChange("cellSize", oldCellSize, newCellSize);
 	}
 
-	public GridGraph2D<?, ?> getGrid() {
+	@SuppressWarnings("rawtypes")
+	public GridGraph2D getGrid() {
 		return grid;
 	}
 

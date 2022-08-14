@@ -25,8 +25,8 @@ import de.amr.graph.pathfinder.impl.BreadthFirstSearch;
 /**
  * Animation of BFS based grid traversals (BFS, A* etc.).
  * <p>
- * Grid cells are colored depending on their distance from the search start cell. The cell coloring
- * always follows the gradient from yellow to red in the HSV color model.
+ * Grid cells are colored depending on their distance from the search start cell. The cell coloring always follows the
+ * gradient from yellow to red in the HSV color model.
  * 
  * @author Armin Reichert
  */
@@ -110,15 +110,12 @@ public class BFSAnimation implements GraphSearchObserver {
 	}
 
 	/**
-	 * Runs an animation of a BFS from the given source vertex to the given target vertex. Cells are
-	 * colored according to their distance from the source. Optionally the distance value is displayed.
+	 * Runs an animation of a BFS from the given source vertex to the given target vertex. Cells are colored according to
+	 * their distance from the source. Optionally the distance value is displayed.
 	 * 
-	 * @param bfs
-	 *                 BFS to be animated
-	 * @param source
-	 *                 source vertex
-	 * @param target
-	 *                 target vertex
+	 * @param bfs    BFS to be animated
+	 * @param source source vertex
+	 * @param target target vertex
 	 */
 	public void run(ObservableGraphSearch bfs, int source, int target) {
 		// 1. explore graph to measure distances of all vertices reachable from source
@@ -135,15 +132,11 @@ public class BFSAnimation implements GraphSearchObserver {
 	}
 
 	/**
-	 * Highlights the path from the source to the target cell. The explorer must have been run before
-	 * calling this method.
+	 * Highlights the path from the source to the target cell. The explorer must have been run before calling this method.
 	 * 
-	 * @param explorer
-	 *                   BFS used to explore the graph for computing distances
-	 * @param source
-	 *                   source cell
-	 * @param target
-	 *                   target cell
+	 * @param explorer BFS used to explore the graph for computing distances
+	 * @param source   source cell
+	 * @param target   target cell
 	 */
 	public void showPath(GraphSearch explorer, int source, int target) {
 		Path path = explorer.buildPath(target);
@@ -153,12 +146,9 @@ public class BFSAnimation implements GraphSearchObserver {
 		// derive path renderer from map renderer or from current renderer
 		if (mapRenderer != null) {
 			canvas.pushRenderer(derivePathRenderer(mapRenderer, path, explorer::getCost));
-		}
-		else if (canvas.getRenderer() instanceof ConfigurableGridRenderer) {
-			canvas.pushRenderer(
-					derivePathRenderer((ConfigurableGridRenderer) canvas.getRenderer(), path, explorer::getCost));
-		}
-		else {
+		} else if (canvas.getRenderer() instanceof ConfigurableGridRenderer cgr) {
+			canvas.pushRenderer(derivePathRenderer(cgr, path, explorer::getCost));
+		} else {
 			throw new IllegalStateException("Cannot derive path renderer from current grid renderer");
 		}
 		// draw path
@@ -170,7 +160,7 @@ public class BFSAnimation implements GraphSearchObserver {
 			}
 			prev = cell;
 		}
-		
+
 		canvas.popRenderer();
 	}
 
@@ -185,10 +175,9 @@ public class BFSAnimation implements GraphSearchObserver {
 		r.fnText = cell -> distanceVisible ? format("%.0f", explorer.getCost(cell)) : "";
 		r.fnTextFont = cell -> new Font("Arial Narrow", Font.PLAIN, r.getPassageWidth(0, 0) / 2);
 		r.fnTextColor = cell -> Color.BLACK;
-		if (base instanceof PearlsGridRenderer) {
-			PearlsGridRenderer br = (PearlsGridRenderer) base;
+		if (base instanceof PearlsGridRenderer br) {
 			PearlsGridRenderer pr = (PearlsGridRenderer) r;
-			pr.fnRelativePearlSize = br.fnRelativePearlSize; 
+			pr.fnRelativePearlSize = br.fnRelativePearlSize;
 		}
 		return r;
 	}
@@ -200,10 +189,10 @@ public class BFSAnimation implements GraphSearchObserver {
 		ConfigurableGridRenderer r = base instanceof PearlsGridRenderer ? new PearlsGridRenderer()
 				: new WallPassageGridRenderer();
 		r.fnCellBgColor = cell -> inPath.get(cell) ? pathColor : base.getCellBgColor(cell);
-		r.fnCellSize = () -> base.getCellSize();
-		r.fnGridBgColor = () -> base.getGridBgColor();
+		r.fnCellSize = base::getCellSize;
+		r.fnGridBgColor = base::getGridBgColor;
 		r.fnPassageColor = (cell, dir) -> {
-			int neighbor = canvas.getGrid().neighbor(cell, dir).get();
+			int neighbor = (int) canvas.getGrid().neighbor(cell, dir).get();
 			return inPath.get(cell) && inPath.get(neighbor) ? pathColor : base.getCellBgColor(cell);
 		};
 		r.fnPassageWidth = (u, v) -> base.getPassageWidth(u, v) > 5 ? base.getPassageWidth(u, v) / 2
@@ -211,10 +200,9 @@ public class BFSAnimation implements GraphSearchObserver {
 		r.fnText = cell -> distanceVisible ? format("%.0f", fnDistance.applyAsDouble(cell)) : "";
 		r.fnTextFont = cell -> new Font("Arial Narrow", Font.PLAIN, r.getPassageWidth(0, 0) * 80 / 100);
 		r.fnTextColor = cell -> Color.WHITE;
-		if (base instanceof PearlsGridRenderer) {
-			PearlsGridRenderer br = (PearlsGridRenderer) base;
+		if (base instanceof PearlsGridRenderer br) {
 			PearlsGridRenderer pr = (PearlsGridRenderer) r;
-			pr.fnRelativePearlSize = br.fnRelativePearlSize; 
+			pr.fnRelativePearlSize = br.fnRelativePearlSize;
 		}
 		return r;
 	}
