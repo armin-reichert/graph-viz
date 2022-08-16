@@ -19,8 +19,8 @@ public final class DelayedRunner {
 	}
 
 	/**
-	 * Runs the given code after waiting for the current delay time. If the last call to this method
-	 * happened before more than one delay interval, it is run immediately.
+	 * Runs the given code after waiting for the current delay time. If the last call to this method happened before more
+	 * than one delay interval, it is run immediately.
 	 * 
 	 * @param code code to be executed
 	 */
@@ -34,7 +34,7 @@ public final class DelayedRunner {
 			try {
 				Thread.sleep(sleepMillis);
 			} catch (InterruptedException e) {
-//				throw new AnimationInterruptedException();
+				Thread.currentThread().interrupt();
 			}
 		}
 	}

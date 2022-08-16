@@ -14,7 +14,7 @@ public class GridCanvasAnimation<V, E> implements GraphObserver<V, E> {
 		try {
 			Thread.sleep(Math.round(seconds * 1000));
 		} catch (InterruptedException e) {
-			throw new AnimationInterruptedException();
+			Thread.currentThread().interrupt();
 		}
 	}
 
@@ -81,7 +81,7 @@ public class GridCanvasAnimation<V, E> implements GraphObserver<V, E> {
 		try {
 			Thread.sleep(fnDelay.getAsInt());
 		} catch (InterruptedException e) {
-			throw new AnimationInterruptedException();
+			Thread.currentThread().interrupt();
 		}
 		code.run();
 		canvas.repaint();

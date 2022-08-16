@@ -46,7 +46,7 @@ public abstract class ConfigurableGridRenderer implements GridRenderer, GridRend
 	/**
 	 * Creates a renderer with default settings.
 	 */
-	public ConfigurableGridRenderer() {
+	protected ConfigurableGridRenderer() {
 		fnCellSize = () -> 8;
 		fnPassageWidth = (u, v) -> getCellSize() / 2;
 		fnGridBgColor = () -> Color.BLACK;
