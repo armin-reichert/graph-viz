@@ -36,14 +36,12 @@ public class MenuBuilder {
 	public static void updateMenuSelection(JMenu menu) {
 		for (int i = 0; i < menu.getItemCount(); ++i) {
 			JMenuItem item = menu.getItem(i);
-			if (item instanceof JCheckBoxMenuItem) {
-				JCheckBoxMenuItem checkBox = (JCheckBoxMenuItem) item;
+			if (item instanceof JCheckBoxMenuItem checkBox) {
 				Optional<Supplier<Boolean>> selection = getProperty(checkBox, "selection");
 				if (selection.isPresent()) {
 					checkBox.setSelected(selection.get().get());
 				}
-			} else if (item instanceof JRadioButtonMenuItem) {
-				JRadioButtonMenuItem radioButton = (JRadioButtonMenuItem) item;
+			} else if (item instanceof JRadioButtonMenuItem radioButton) {
 				Optional<Supplier<?>> selection = getProperty(radioButton, "selection");
 				Optional<?> selectionValue = getProperty(radioButton, "selectionValue");
 				if (selection.isPresent() && selectionValue.isPresent() && selection.get().get().equals(selectionValue.get())) {

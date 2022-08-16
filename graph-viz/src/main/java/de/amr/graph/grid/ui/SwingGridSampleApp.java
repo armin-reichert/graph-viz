@@ -41,7 +41,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	public enum Style {
 		WALL_PASSAGE, PEARLS
-	};
+	}
 
 	public static void launch(SwingGridSampleApp app) {
 		try {
@@ -89,7 +89,6 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	protected void addKeyboardAction(String key, Runnable code) {
 		AbstractAction action = new AbstractAction() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				code.run();
