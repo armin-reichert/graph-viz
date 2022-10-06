@@ -51,6 +51,17 @@ public class GridCanvas extends JComponent {
 	 * @param cellSize grid cell size in pixel
 	 */
 	public GridCanvas(GridGraph2D<?, ?> grid, int cellSize) {
+		this(grid, cellSize, true);
+	}
+
+	/**
+	 * Constructs a grid canvas rendering the given grid at the given cell size.
+	 * 
+	 * @param grid             grid to be rendered
+	 * @param cellSize         grid cell size in pixel
+	 * @param renderOnCreation if grid is rendered when created (for use inside Window builder)
+	 */
+	public GridCanvas(GridGraph2D<?, ?> grid, int cellSize, boolean renderOnCreation) {
 		this.grid = Objects.requireNonNull(grid);
 		if (cellSize <= 0) {
 			throw new IllegalArgumentException("Grid cell size must be positive");
@@ -61,8 +72,8 @@ public class GridCanvas extends JComponent {
 		setBackground(Color.BLACK);
 		createBuffer(cellSize * grid.numCols(), cellSize * grid.numRows());
 		createDefaultRenderer();
-		// avoid initial rendering for large grids
-		if (grid.numVertices() < 1000) {
+		if (renderOnCreation && grid.numVertices() < 1000) {
+			// avoid initial rendering for large grids
 			defaultRenderer.drawGrid(getDrawGraphics(), grid);
 		}
 	}

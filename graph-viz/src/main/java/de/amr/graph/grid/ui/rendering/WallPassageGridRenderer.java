@@ -6,6 +6,9 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.amr.graph.grid.api.GridGraph2D;
 import de.amr.graph.grid.impl.Grid4Topology;
 
@@ -17,6 +20,8 @@ import de.amr.graph.grid.impl.Grid4Topology;
 public class WallPassageGridRenderer extends ConfigurableGridRenderer {
 
 	public class DefaultCellRenderer implements GridCellRenderer {
+
+		private static final Logger LOGGER = LogManager.getFormatterLogger();
 
 		@Override
 		public void drawCell(Graphics2D g, GridGraph2D<?, ?> grid, int cell) {
@@ -47,6 +52,7 @@ public class WallPassageGridRenderer extends ConfigurableGridRenderer {
 			if (text.length() == 0) {
 				return;
 			}
+			LOGGER.trace("Cell %d has text %s".formatted(cell, text));
 			g.setColor(getTextColor(cell));
 			g.setFont(font);
 			Rectangle textBox = g.getFontMetrics().getStringBounds(text, g).getBounds();
