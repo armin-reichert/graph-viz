@@ -19,7 +19,7 @@ import de.amr.graph.grid.impl.Grid4Topology;
  */
 public class WallPassageGridRenderer extends ConfigurableGridRenderer {
 
-	public class DefaultCellRenderer implements GridCellRenderer {
+	private class DefaultCellRenderer implements GridCellRenderer {
 
 		private static final Logger LOGGER = LogManager.getFormatterLogger();
 

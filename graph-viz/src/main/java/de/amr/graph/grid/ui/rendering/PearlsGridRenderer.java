@@ -15,7 +15,7 @@ public class PearlsGridRenderer extends ConfigurableGridRenderer {
 
 	public DoubleSupplier fnRelativePearlSize = () -> .66;
 
-	public class DefaultCellRenderer implements GridCellRenderer {
+	private class DefaultCellRenderer implements GridCellRenderer {
 
 		@Override
 		public void drawCell(Graphics2D g, GridGraph2D<?, ?> grid, int cell) {
