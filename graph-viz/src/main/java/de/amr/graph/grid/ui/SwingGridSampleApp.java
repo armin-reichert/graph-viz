@@ -39,7 +39,7 @@ import de.amr.util.StopWatch;
  */
 public abstract class SwingGridSampleApp implements Runnable {
 
-	public enum Style {
+	public enum RenderingStyle {
 		WALL_PASSAGE, PEARLS
 	}
 
@@ -62,7 +62,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 	private Dimension canvasSize;
 	private GridCanvas canvas;
 	private GridCanvasAnimation<TraversalState, Integer> canvasAnimation;
-	private Style style;
+	private RenderingStyle style;
 	private String appName;
 	private boolean fullscreen;
 	private ObservableGridGraph<TraversalState, Integer> grid;
@@ -71,7 +71,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	protected SwingGridSampleApp(int width, int height, int cellSize) {
 		fullscreen = false;
-		style = Style.WALL_PASSAGE;
+		style = RenderingStyle.WALL_PASSAGE;
 		canvasSize = new Dimension(width, height);
 		grid = GridFactory.emptyObservableGrid(width / cellSize, height / cellSize, Grid4Topology.get(), UNVISITED, 0);
 		createUI(cellSize);
@@ -79,7 +79,7 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	protected SwingGridSampleApp(int cellSize) {
 		fullscreen = true;
-		style = Style.WALL_PASSAGE;
+		style = RenderingStyle.WALL_PASSAGE;
 		canvasSize = getScreenSize();
 		grid = GridFactory.emptyObservableGrid(canvasSize.width / cellSize, canvasSize.height / cellSize,
 				Grid4Topology.get(), UNVISITED, 0);
@@ -127,7 +127,6 @@ public abstract class SwingGridSampleApp implements Runnable {
 		canvas.pushRenderer(createRenderer());
 		canvas.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ESCAPE"), "exit");
 		canvas.getActionMap().put("exit", new AbstractAction() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -139,9 +138,9 @@ public abstract class SwingGridSampleApp implements Runnable {
 
 	protected ConfigurableGridRenderer createRenderer() {
 		ConfigurableGridRenderer r;
-		if (style == Style.WALL_PASSAGE) {
+		if (style == RenderingStyle.WALL_PASSAGE) {
 			r = new WallPassageGridRenderer();
-		} else if (style == Style.PEARLS) {
+		} else if (style == RenderingStyle.PEARLS) {
 			r = new PearlsGridRenderer();
 		} else {
 			throw new IllegalArgumentException();
@@ -201,11 +200,11 @@ public abstract class SwingGridSampleApp implements Runnable {
 		}
 	}
 
-	public Style getStyle() {
+	public RenderingStyle getStyle() {
 		return style;
 	}
 
-	public void setStyle(Style style) {
+	public void setStyle(RenderingStyle style) {
 		if (this.style == style) {
 			return;
 		}
