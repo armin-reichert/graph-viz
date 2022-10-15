@@ -29,7 +29,7 @@ import de.amr.graph.grid.ui.rendering.ConfigurableGridRenderer;
 import de.amr.graph.grid.ui.rendering.GridCanvas;
 import de.amr.graph.grid.ui.rendering.PearlsGridRenderer;
 import de.amr.graph.grid.ui.rendering.WallPassageGridRenderer;
-import de.amr.swing.MySwingUtils;
+import de.amr.swing.MySwing;
 import de.amr.util.StopWatch;
 
 /**
@@ -107,8 +107,8 @@ public abstract class SwingGridSampleApp implements Runnable {
 		window.setTitle(getTitleText());
 		window.setBackground(Color.BLACK);
 		if (fullscreen) {
-			window.setPreferredSize(MySwingUtils.getDisplaySize());
-			window.setSize(MySwingUtils.getDisplaySize());
+			window.setPreferredSize(MySwing.getDisplaySize());
+			window.setSize(MySwing.getDisplaySize());
 			window.setUndecorated(true);
 			window.setAlwaysOnTop(true);
 		} else {

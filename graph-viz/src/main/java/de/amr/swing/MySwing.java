@@ -20,7 +20,7 @@ import javax.swing.JComboBox;
  * 
  * @author Armin Reichert
  */
-public interface MySwingUtils {
+public interface MySwing {
 
 	public static final Action NULL_ACTION = action("", e -> {
 	});
@@ -32,7 +32,7 @@ public interface MySwingUtils {
 	}
 
 	public static Icon icon(String path) {
-		return new ImageIcon(MySwingUtils.class.getResource(path));
+		return new ImageIcon(MySwing.class.getResource(path));
 	}
 
 	public static Action action(String name, ActionListener listener) {
